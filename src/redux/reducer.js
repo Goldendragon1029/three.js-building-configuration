@@ -1,15 +1,23 @@
-import { INCREMENT, DECREMENT } from "./action";
+import { BUILDINGTYPE, BUILDINGSIZE, ROOFTYPE, DOORTYPE } from "./action";
 
 const initialState = {
-    count: 0,
+    buildingType: "Simple",
+    width: 4,
+    length: 4,
+    roofType: "Stone",
+    doorType: "Circle"
 }
 
 const counterReducer = (state = initialState, action) => {
     switch (action.type) {
-        case INCREMENT:
-            return { ...state, count: state.count + 1 };
-        case DECREMENT:
-            return { ...state, count: state.count - 1};
+        case BUILDINGTYPE:
+            return { ...state, buildingType: action.value };
+        case BUILDINGSIZE:
+            return { ...state, width: action.width, length: action.length};
+        case ROOFTYPE:
+            return { ...state, roofType: action.value};
+        case DOORTYPE:
+            return { ...state, doorType: action.value};
         default: return state;
     }
 };
