@@ -17,7 +17,6 @@ export const buildingSize = (width, length) => ({
 export const roofType = (value) => ({
     type: ROOFTYPE,
     value
-
 });
 
 export const doorType = (value) => ({

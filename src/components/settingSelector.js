@@ -18,9 +18,6 @@ export default function SettingSelector(props) {
         break;
       case 'buildingSize':
         const [width, length] = event.target.value.split('-');
-        console.log("split=", event.target.value.split('-'));
-        console.log("width=", width);
-        console.log("length=", length);
         dispatch(buildingSize(width, length));
         break;
       case 'roofType':

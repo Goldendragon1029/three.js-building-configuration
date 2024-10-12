@@ -13,7 +13,7 @@ const counterReducer = (state = initialState, action) => {
         case BUILDINGTYPE:
             return { ...state, buildingType: action.value };
         case BUILDINGSIZE:
-            return { ...state, width: action.width, length: action.length};
+            return { ...state, width: Number(action.width), length: Number(action.length)};
         case ROOFTYPE:
             return { ...state, roofType: action.value};
         case DOORTYPE:
