@@ -4,7 +4,7 @@ const initialState = {
     buildingType: "Simple",
     width: 4,
     length: 4,
-    roofType: "Stone",
+    roofType: "Horizontal",
     doorType: "Circle"
 }
 
