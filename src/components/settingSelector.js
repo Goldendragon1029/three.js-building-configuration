@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { buildingType, buildingSize, roofType, doorType } from '../redux/action';
 
 export default function SettingSelector(props) {
-  const [settingType, setSettingType] = React.useState('');
+  const [settingType, setSettingType] = React.useState(props.item[0]);
   const dispatch = useDispatch();
   // console.log("props=", props.item)
   const handleChange = (event) => {
@@ -18,9 +18,6 @@ export default function SettingSelector(props) {
         break;
       case 'buildingSize':
         const [width, length] = event.target.value.split('-');
-        console.log("split=", event.target.value.split('-'));
-        console.log("width=", width);
-        console.log("length=", length);
         dispatch(buildingSize(width, length));
         break;
       case 'roofType':
@@ -49,9 +46,6 @@ export default function SettingSelector(props) {
           ))}
         </Select>
       </FormControl>
-      <button onClick={ () => {
-        console.log("settingType=", settingType);
-      }}>rim</button>
     </div>
   );
 }
