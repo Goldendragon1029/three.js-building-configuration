@@ -1,12 +1,8 @@
 import { useState } from "react";
 import SettingSelector from "./settingSelector";
-import { useSelector } from "react-redux";
 
 const Toolbar = () => {
     const [handleShow, setHandleShow] = useState(false);
-    const building = useSelector((state) => state.buildingType);
-    const width = useSelector((state) => state.width);
-    const length = useSelector((state) => state.length);
     
     const handleChange = () => {
         setHandleShow(!handleShow);
@@ -15,9 +11,6 @@ const Toolbar = () => {
     return (
         <>
             <div className={`bg-white z-50 min-h-full tablet:min-w-350 tablet:block large:min-w-450 min-w-300 ${handleShow ? 'block fixed' : 'hidden'}`}>
-                <h1>{building}</h1>
-                <h1>width: {width}</h1>
-                <h1>length: {length}</h1>
                 <SettingSelector
                     title="Building Type"
                     item={["Simple", "Complex"]}
@@ -30,7 +23,7 @@ const Toolbar = () => {
                 />
                 <SettingSelector
                     title="Roof Type"
-                    item={["Stone", "Iron"]}
+                    item={["Horizontal", "Vertical"]}
                     action="roofType"
                 />
                 <SettingSelector
