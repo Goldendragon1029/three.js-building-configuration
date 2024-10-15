@@ -10,17 +10,6 @@ import { LeftRoof } from "../walls/leftRoof";
 import { RidgeRoof } from '../walls/ridgeRoof';
 import { useLoader } from '@react-three/fiber';
 
-// const holeModel = new THREE.Path()
-// holeModel.moveTo(0, -1);
-// holeModel.lineTo(2, -1);
-// holeModel.lineTo(2.5, 0);
-// holeModel.lineTo(2, 1);
-// holeModel.lineTo(0, 1);
-// holeModel.closePath();
-// newModel.holes.push(holeModel)
-
-
-
 const SimpleBuilding = (props) => {
     const wallDepth = 0.05;
     const ridgeDepth = 0.02;
