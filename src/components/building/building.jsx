@@ -18,7 +18,7 @@ const SimpleBuilding = (props) => {
     const roofAngle = 30 * Math.PI / 180;
     const roofLength = props.length + 0.7;
     const roofWidth = props.width + 0.7;
-    const doorWidth = props.width / 3;
+    const doorWidth = props.width / 2;
     const doorHeight = 2.5;
     const sillHeight = 0.05;
     const doorFrameWidth = 0.05;
