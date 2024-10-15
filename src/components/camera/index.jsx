@@ -17,7 +17,7 @@ export const CameraController = (props) => {
             camera.position.lerp(targetPosition.current, 0.03);
             const distance = camera.position.distanceTo(targetPosition.current);
             console.log("distance=", distance);
-            if (distance < 0.5) {
+            if (distance < 1) {
                 setIsMoving(false);
             }
             camera.lookAt(0,0,0);

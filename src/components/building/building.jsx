@@ -8,6 +8,7 @@ import { SideWall } from "../walls/sideWall";
 import { RightRoof } from "../walls/rightRoof";
 import { LeftRoof } from "../walls/leftRoof";
 import { RidgeRoof } from '../walls/ridgeRoof';
+import { DoorFrame } from '../walls/doorFrame';
 import { useLoader } from '@react-three/fiber';
 
 const SimpleBuilding = (props) => {
@@ -17,10 +18,17 @@ const SimpleBuilding = (props) => {
     const roofAngle = 30 * Math.PI / 180;
     const roofLength = props.length + 0.7;
     const roofWidth = props.width + 0.7;
+    const doorWidth = props.width / 3;
+    const doorHeight = 2.5;
+    const sillHeight = 0.05;
+    const doorFrameWidth = 0.05;
 
     const horizontalLoader = useLoader(TextureLoader, './image/material/horizontalTexture.jpg');
     const verticalLoader = useLoader(TextureLoader, './image/material/verticalTexture.jpg');
     const wallLoader = useLoader(TextureLoader, './image/material/wall.jpg');
+    const doorLoader = useLoader(TextureLoader, './image/material/door_displacement_texture.jpg');
+    const shaderDoorLoader = useLoader(TextureLoader, './image/material/door_displacement_shader_texture.png');
+    shaderDoorLoader.rotation = Math.PI / 2;
 
     const horizontalTexture = horizontalLoader.clone();
     horizontalTexture.wrapS = THREE.RepeatWrapping;
@@ -42,6 +50,18 @@ const SimpleBuilding = (props) => {
     sideWallTexture.wrapS = THREE.RepeatWrapping;
     sideWallTexture.wrapT = THREE.RepeatWrapping;
     sideWallTexture.repeat.set(1, 3);
+
+    const doorTexture = doorLoader.clone();
+    // doorTexture.wrapS = THREE.ClampToEdgeWrapping;
+    // doorTexture.wrapT = THREE.ClampToEdgeWrapping;
+    // doorTexture.repeat.set(1, 0.5);
+    
+    // doorTexture.offset.set(0.5, -0.1);
+    doorTexture.wrapS = THREE.RepeatWrapping;
+    doorTexture.wrapT = THREE.RepeatWrapping;
+    doorTexture.repeat.set(1, 2);
+    
+    doorTexture.rotation = - Math.PI / 2 ;
     
     let selectedTexture = horizontalTexture;
     
@@ -54,8 +74,21 @@ const SimpleBuilding = (props) => {
         <group>
             <group position={[props.length / 2, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
                 <mesh rotation={[Math.PI / 2, 0, 0]}>
-                    <extrudeGeometry args={[FrontWall(props.width, wallHeight, roofAngle), extrudeSettings(wallDepth)]}/>
+                    <extrudeGeometry args={[FrontWall(props.width, wallHeight, roofAngle, doorWidth, doorHeight, sillHeight, doorFrameWidth), extrudeSettings(wallDepth)]}/>
                     <meshLambertMaterial map={frontWallTexture} bumpMap={frontWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
+                </mesh>
+            </group>
+            <group position={[props.length / 2, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
+                <mesh rotation={[Math.PI / 2, 0, 0]}>
+                    <extrudeGeometry args={[DoorFrame(doorWidth, doorHeight, doorFrameWidth), extrudeSettings(wallDepth + 0.02)]}/>
+                    <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                </mesh>
+            </group>
+            <group position={[props.length / 2, doorHeight / 2 + sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
+                <mesh rotation={[Math.PI / 2, 0, 0]}>
+                    {/* <extrudeGeometry args={[Door(props.width, wallHeight, roofAngle), extrudeSettings(wallDepth + 0.1)]}/> */}
+                    <planeGeometry args={[doorHeight, doorWidth, 256, 256]} />
+                    <meshStandardMaterial displacementMap={doorTexture} map={shaderDoorLoader} bumpMap={doorTexture} bumpScale={1} displacementScale={0.07}  side={THREE.DoubleSide} metalness={0.4} roughness={0.6} color={"white"} emissive={"gray"} />
                 </mesh>
             </group>
             <group position={[ - props.length / 2, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
