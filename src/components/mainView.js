@@ -18,6 +18,7 @@ const MainView = () =>{
     const width = useSelector((state) => state.width);
     const length = useSelector((state) => state.length);
     const roofType = useSelector((state) => state.roofType);
+    const doorType = useSelector((state) => state.doorType);
 
     const handleCamera = (value) => {
         switch (value) {
@@ -63,6 +64,7 @@ const MainView = () =>{
                     width={width}
                     length={length}
                     roofType={roofType}
+                    doorType={doorType}
                 />
                 <directionalLight position={[-10, -5, 5]} />
                 <directionalLight position={[10, 5, -5]} />

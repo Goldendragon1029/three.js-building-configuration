@@ -5,7 +5,7 @@ const initialState = {
     width: 4,
     length: 4,
     roofType: "Horizontal",
-    doorType: "Circle"
+    doorType: "Iron"
 }
 
 const counterReducer = (state = initialState, action) => {

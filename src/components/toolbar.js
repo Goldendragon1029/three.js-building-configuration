@@ -28,7 +28,7 @@ const Toolbar = () => {
                 />
                 <SettingSelector
                     title="Door Type"
-                    item={["Circle", "Square"]}
+                    item={["Iron", "Wood"]}
                     action="doorType"
                 />
             </div>
