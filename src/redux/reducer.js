@@ -1,11 +1,12 @@
-import { BUILDINGTYPE, BUILDINGSIZE, ROOFTYPE, DOORTYPE } from "./action";
+import { BUILDINGTYPE, BUILDINGSIZE, ROOFTYPE, DOORTYPE, ROOFANGLE } from "./action";
 
 const initialState = {
     buildingType: "Simple",
     width: 4,
     length: 4,
     roofType: "Horizontal",
-    doorType: "Iron"
+    doorType: "Iron",
+    roofAngle: 15
 }
 
 const counterReducer = (state = initialState, action) => {
@@ -18,6 +19,8 @@ const counterReducer = (state = initialState, action) => {
             return { ...state, roofType: action.value};
         case DOORTYPE:
             return { ...state, doorType: action.value};
+        case ROOFANGLE:
+            return { ...state, roofAngle: action.value};
         default: return state;
     }
 };
