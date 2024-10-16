@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useDispatch } from 'react-redux';
-import { buildingType, buildingSize, roofType, doorType } from '../redux/action';
+import { buildingType, buildingSize, roofType, doorType, roofAngle } from '../redux/action';
 
 export default function SettingSelector(props) {
   const [settingType, setSettingType] = React.useState(props.item[0]);
@@ -25,6 +25,9 @@ export default function SettingSelector(props) {
         break;
       case 'doorType':
         dispatch(doorType(event.target.value));
+        break;
+      case 'roofAngle':
+        dispatch(roofAngle(event.target.value));
         break;
       default:
         break;

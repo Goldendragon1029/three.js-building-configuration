@@ -6,10 +6,7 @@ import { Button, ButtonGroup } from "@mui/material";
 import { CameraController } from "./camera";
 import { useState } from "react";
 
-// import Plane from "./plane";
-
 const MainView = () =>{
-    // const building = useSelector((state) => state.buildingType);
     const [position, setPosition] = useState({
         x: 10,
         y: 10,
@@ -19,6 +16,7 @@ const MainView = () =>{
     const length = useSelector((state) => state.length);
     const roofType = useSelector((state) => state.roofType);
     const doorType = useSelector((state) => state.doorType);
+    const roofAngle = useSelector((state) => state.roofAngle);
 
     const handleCamera = (value) => {
         switch (value) {
@@ -57,22 +55,21 @@ const MainView = () =>{
 
     return (
         <>
-            <Canvas style={{ height: "100vh", width: "100%" }}>
-                {/* <FirstPersonControls movementSpeed={3}/> */}
+            <Canvas style={{ height: "100vh", width: "100%" }} shadows>
                 <color attach="background" args={[0xccccff]} />
                 <SimpleBuilding 
                     width={width}
                     length={length}
                     roofType={roofType}
                     doorType={doorType}
+                    roofAngle={roofAngle}
                 />
-                <directionalLight position={[-10, -5, 5]} />
-                <directionalLight position={[10, 5, -5]} />
-                <directionalLight position={[2, 5, -1]} />
+                <directionalLight position={[20, 10, 20]} castShadow/>
+                <ambientLight intensity={0.1}/>
                 <CameraController position={position}/>
                 <OrbitControls />
                 <axesHelper args={[5]} />
-                <gridHelper args={[30, 30]} />
+                {/* <gridHelper args={[30, 30]} /> */}
             </Canvas>
             <ButtonGroup variant="contained" aria-label="Basic button group" className="absolute z-10 p-1 right-20 top-20">
                 <Button className="text-black bg-white opacity-80" onClick={() => handleCamera('front')}>Front</Button>
