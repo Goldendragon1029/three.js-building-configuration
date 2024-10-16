@@ -35,7 +35,6 @@ const SimpleBuilding = (props) => {
     const wallLoader = useLoader(TextureLoader, './image/material/wall.jpg');
     const doorLoader = useLoader(TextureLoader, './image/material/door_displacement_texture.jpg');
     const shaderDoorLoader = useLoader(TextureLoader, './image/material/door_displacement_shader_texture.png');
-    const woodLoader = useLoader(TextureLoader, './image/material/wood.jpg');
     shaderDoorLoader.rotation = Math.PI / 2;
 
     const horizontalTexture = horizontalLoader.clone();
@@ -58,12 +57,6 @@ const SimpleBuilding = (props) => {
     sideWallTexture.wrapS = THREE.RepeatWrapping;
     sideWallTexture.wrapT = THREE.RepeatWrapping;
     sideWallTexture.repeat.set(1, 3);
-
-    const woodTexture = woodLoader.clone();
-    woodTexture.wrapS = THREE.RepeatWrapping;
-    woodTexture.wrapT = THREE.RepeatWrapping;
-    woodTexture.repeat.set(1, 3);
-    woodTexture.rotation = Math.PI / 2;
 
     const doorTexture = doorLoader.clone();
     // doorTexture.wrapS = THREE.ClampToEdgeWrapping;
