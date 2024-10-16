@@ -131,25 +131,25 @@ const SimpleBuilding = (props) => {
                 )}
             </group>
             <group>
-                <group position={[props.width / 2 - pillarWidth / 4, 0, - props.length / 2 + pillarWidth / 4]}>
+                <group position={[props.length / 2 - pillarWidth / 4, 0, - props.width / 2 + pillarWidth / 4]}>
                     <mesh rotation={[ - Math.PI / 2, 0, 0]}>
                         <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
                         <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
                     </mesh>
                 </group>
-                <group position={[ - props.width / 2 + pillarWidth / 4, 0, - props.length / 2 + pillarWidth / 4]} rotation={[0, Math.PI / 2, 0]}>
+                <group position={[ - props.length / 2 + pillarWidth / 4, 0, - props.width / 2 + pillarWidth / 4]} rotation={[0, Math.PI / 2, 0]}>
                     <mesh rotation={[ - Math.PI / 2, 0, 0]}>
                         <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
                         <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
                     </mesh>
                 </group>
-                <group position={[ - props.width / 2 + pillarWidth / 4, 0,  props.length / 2 - pillarWidth / 4]} rotation={[0, Math.PI, 0]}>
+                <group position={[ - props.length / 2 + pillarWidth / 4, 0,  props.width / 2 - pillarWidth / 4]} rotation={[0, Math.PI, 0]}>
                     <mesh rotation={[ - Math.PI / 2, 0, 0]}>
                         <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
                         <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
                     </mesh>
                 </group>
-                <group position={[  props.width / 2 - pillarWidth / 4, 0,  props.length / 2 - pillarWidth / 4]} rotation={[0, - Math.PI / 2, 0]}>
+                <group position={[  props.length / 2 - pillarWidth / 4, 0,  props.width / 2 - pillarWidth / 4]} rotation={[0, - Math.PI / 2, 0]}>
                     <mesh rotation={[ - Math.PI / 2, 0, 0]}>
                         <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
                         <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
@@ -157,19 +157,19 @@ const SimpleBuilding = (props) => {
                 </group>
             </group>
             <group position={[ - props.length / 2, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-                <mesh rotation={[Math.PI / 2, 0, 0]}>
+                <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
                     <extrudeGeometry args={[BackWall(props.width, wallHeight, roofAngle), extrudeSettings( - wallDepth)]}/>
                     <meshLambertMaterial map={frontWallTexture} bumpMap={frontWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                 </mesh>
             </group>
             <group>
-                <mesh position={[ - props.length / 2 - wallDepth, 0, - props.width / 2]}>
+                <mesh position={[ - props.length / 2 - wallDepth, 0, - props.width / 2]} castShadow>
                     <extrudeGeometry args={[SideWall(props.length, wallHeight, wallDepth), extrudeSettings( - wallDepth)]}/>
                     <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                 </mesh>
             </group>
             <group>
-                <mesh position={[ - props.length / 2 - wallDepth, 0, props.width / 2]}>
+                <mesh position={[ - props.length / 2 - wallDepth, 0, props.width / 2]} castShadow>
                     <extrudeGeometry args={[SideWall(props.length, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
                     <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                 </mesh>
@@ -177,14 +177,14 @@ const SimpleBuilding = (props) => {
 
             <group>
                 <group position={[0, wallHeight + props.width * Math.tan(roofAngle) / 2, 0]} >
-                    <mesh rotation={[ -  Math.PI / 2 - roofAngle, 0, 0]}>
+                    <mesh rotation={[ -  Math.PI / 2 - roofAngle, 0, 0]} castShadow>
                         <extrudeGeometry args={[RightRoof(roofWidth, roofLength, roofAngle), extrudeSettings(wallDepth)]}/>
                         <meshLambertMaterial map={selectedTexture} bumpMap={selectedTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                     </mesh>
                 </group>
 
                 <group position={[0, wallHeight + props.width * Math.tan(roofAngle) / 2, 0]} >
-                    <mesh rotation={[ - Math.PI / 2 + roofAngle, 0, 0]}>
+                    <mesh rotation={[ - Math.PI / 2 + roofAngle, 0, 0]} castShadow>
                         <extrudeGeometry args={[LeftRoof(roofWidth, roofLength, roofAngle), extrudeSettings(wallDepth)]}/>
                         <meshLambertMaterial map={selectedTexture} bumpMap={selectedTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                     </mesh>
@@ -210,6 +210,12 @@ const SimpleBuilding = (props) => {
                         <meshStandardMaterial color={0x888888} side={THREE.DoubleSide} metalness={5} roughness={1}/>
                     </mesh>
                 </group>
+            </group>
+            <group>
+                <mesh rotation={[ - Math.PI / 2, 0, 0]} receiveShadow>
+                    <planeGeometry args={[30, 30]}/>
+                    <meshStandardMaterial color={'white'} roughness={1} />
+                </mesh>
             </group>
         </group>
     )

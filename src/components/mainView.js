@@ -64,12 +64,12 @@ const MainView = () =>{
                     doorType={doorType}
                     roofAngle={roofAngle}
                 />
-                <directionalLight position={[40, 40, 40]} castShadow={true}/>
+                <directionalLight position={[20, 10, 20]} castShadow/>
                 <ambientLight intensity={0.1}/>
                 <CameraController position={position}/>
                 <OrbitControls />
                 <axesHelper args={[5]} />
-                <gridHelper args={[30, 30]} />
+                {/* <gridHelper args={[30, 30]} /> */}
             </Canvas>
             <ButtonGroup variant="contained" aria-label="Basic button group" className="absolute z-10 p-1 right-20 top-20">
                 <Button className="text-black bg-white opacity-80" onClick={() => handleCamera('front')}>Front</Button>
