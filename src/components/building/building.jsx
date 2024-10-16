@@ -12,12 +12,14 @@ import { DoorFrame } from '../walls/doorFrame';
 import { useLoader } from '@react-three/fiber';
 import { WoodDoor } from '../walls/woodDoor';
 import { DoorPattern } from '../walls/doorPattern';
+import { Pillar } from '../walls/pillar';
+import { DoorGlass } from '../walls/doorGlass';
 
 const SimpleBuilding = (props) => {
     const wallDepth = 0.05;
     const ridgeDepth = 0.02;
     const wallHeight = 3;
-    const roofAngle = 15 * Math.PI / 180;
+    const roofAngle = props.roofAngle * Math.PI / 180;
     const roofLength = props.length + 0.7;
     const roofWidth = props.width + 0.7;
     const doorWidth = props.width / 2;
@@ -28,6 +30,7 @@ const SimpleBuilding = (props) => {
     const sideWidth = 0.2;
     const miniHoleWidth = (doorWidth - sideWidth * (miniHoleNumber + 1)) / miniHoleNumber;
     const bevelSize = 0.02;
+    const pillarWidth = 0.1;
 
 
     const horizontalLoader = useLoader(TextureLoader, './image/material/horizontalTexture.jpg');
@@ -35,6 +38,7 @@ const SimpleBuilding = (props) => {
     const wallLoader = useLoader(TextureLoader, './image/material/wall.jpg');
     const doorLoader = useLoader(TextureLoader, './image/material/door_displacement_texture.jpg');
     const shaderDoorLoader = useLoader(TextureLoader, './image/material/door_displacement_shader_texture.png');
+    const glassLoader = new THREE.CubeTextureLoader().setPath('./image/material/').load(['glass-texture.jpg', 'glass-texture.jpg', 'glass-texture.jpg', 'glass-texture.jpg', 'glass-texture.jpg', 'glass-texture.jpg']);
     shaderDoorLoader.rotation = Math.PI / 2;
 
     const horizontalTexture = horizontalLoader.clone();
@@ -59,11 +63,6 @@ const SimpleBuilding = (props) => {
     sideWallTexture.repeat.set(1, 3);
 
     const doorTexture = doorLoader.clone();
-    // doorTexture.wrapS = THREE.ClampToEdgeWrapping;
-    // doorTexture.wrapT = THREE.ClampToEdgeWrapping;
-    // doorTexture.repeat.set(1, 0.5);
-    
-    // doorTexture.offset.set(0.5, -0.1);
     doorTexture.wrapS = THREE.RepeatWrapping;
     doorTexture.wrapT = THREE.RepeatWrapping;
     doorTexture.repeat.set(1, 2);
@@ -103,10 +102,15 @@ const SimpleBuilding = (props) => {
                             <mesh rotation={[Math.PI / 2, 0, 0]}>
                                 <extrudeGeometry args={[WoodDoor(doorWidth, doorHeight, miniHoleNumber), extrudeSettings(wallDepth)]}/>
                                 <meshStandardMaterial color={0x888888} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                                {/* <meshLambertMaterial map={woodTexture} bumpMap={woodTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} /> */}
                             </mesh>
                         </group>
-                        
+
+                        <group position={[props.length / 2, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
+                            <mesh rotation={[Math.PI / 2, 0, 0]}>
+                                <extrudeGeometry args={[DoorGlass(doorWidth, doorHeight), extrudeSettings(wallDepth / 2)]}/>
+                                <meshPhongMaterial envMap={glassLoader} reflectivity={1} color={'white'}/>
+                            </mesh>
+                        </group>
 
                         {(() => {
                             const listPatterns = [];
@@ -126,7 +130,32 @@ const SimpleBuilding = (props) => {
                     </group>
                 )}
             </group>
-
+            <group>
+                <group position={[props.width / 2 - pillarWidth / 4, 0, - props.length / 2 + pillarWidth / 4]}>
+                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                    </mesh>
+                </group>
+                <group position={[ - props.width / 2 + pillarWidth / 4, 0, - props.length / 2 + pillarWidth / 4]} rotation={[0, Math.PI / 2, 0]}>
+                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                    </mesh>
+                </group>
+                <group position={[ - props.width / 2 + pillarWidth / 4, 0,  props.length / 2 - pillarWidth / 4]} rotation={[0, Math.PI, 0]}>
+                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                    </mesh>
+                </group>
+                <group position={[  props.width / 2 - pillarWidth / 4, 0,  props.length / 2 - pillarWidth / 4]} rotation={[0, - Math.PI / 2, 0]}>
+                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                    </mesh>
+                </group>
+            </group>
             <group position={[ - props.length / 2, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
                 <mesh rotation={[Math.PI / 2, 0, 0]}>
                     <extrudeGeometry args={[BackWall(props.width, wallHeight, roofAngle), extrudeSettings( - wallDepth)]}/>
