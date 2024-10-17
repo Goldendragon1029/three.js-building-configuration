@@ -2,8 +2,8 @@ import { BUILDINGTYPE, BUILDINGSIZE, ROOFTYPE, DOORTYPE, ROOFANGLE } from "./act
 
 const initialState = {
     buildingType: "Simple",
-    width: 4,
-    length: 4,
+    width: 6,
+    length: 6,
     roofType: "Horizontal",
     doorType: "Iron",
     roofAngle: 15

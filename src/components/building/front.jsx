@@ -8,14 +8,28 @@ import { DoorPattern } from '../walls/doorPattern';
 import { DoorGlass } from '../walls/doorGlass';
 import { useLoader } from '@react-three/fiber';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { SideWall } from '../walls/sideWall';
 
 const Front = () => {
 
+    const buildingType = useSelector((state) => state.buildingType);
     const buildingWidth = useSelector((state) => state.width);
     const buildingLength = useSelector((state) => state.length);
     const doorType = useSelector((state) => state.doorType);
     const angle = useSelector((state) => state.roofAngle);
 
+
+    const [moveLength, setMoveLength] = useState(buildingLength / 2);
+
+    useEffect(() => {
+      if (buildingType === 'Simple') {
+        setMoveLength(buildingLength / 2); 
+      } else {
+        setMoveLength(buildingLength + buildingWidth / 2);
+      }
+    }, [buildingType, buildingLength, buildingWidth]);
+    
     const wallDepth = 0.05;
     const wallHeight = 3;
     const roofAngle = angle * Math.PI / 180;
@@ -49,57 +63,67 @@ const Front = () => {
 
     return (
         <group>
-            <group position={[buildingLength / 2, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-                <mesh rotation={[Math.PI / 2, 0, 0]}>
-                    <extrudeGeometry args={[FrontWall(buildingWidth, wallHeight, roofAngle, doorWidth, doorHeight, sillHeight, doorFrameWidth), extrudeSettings(wallDepth)]}/>
-                    <meshLambertMaterial map={frontWallTexture} bumpMap={frontWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
-                </mesh>
-            </group>
-            <group position={[buildingLength / 2, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
-                <mesh rotation={[Math.PI / 2, 0, 0]}>
-                    <extrudeGeometry args={[DoorFrame(doorWidth, doorHeight, doorFrameWidth), extrudeSettings(wallDepth + 0.02)]}/>
-                    <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                </mesh>
-            </group>
-            {doorType === 'Iron' && (<group position={[buildingLength / 2, doorHeight / 2 + sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
-                <mesh rotation={[Math.PI / 2, 0, 0]}>
-                    <planeGeometry args={[doorHeight, doorWidth, 256, 256]} />
-                    <meshStandardMaterial displacementMap={doorTexture} map={shaderDoorLoader} bumpMap={doorTexture} bumpScale={1} displacementScale={0.07}  side={THREE.DoubleSide} metalness={0.4} roughness={0.6} color={"white"} emissive={"gray"} />
-                </mesh>
-            </group>)}
-            {doorType === 'Wood' && (
-                <group>
-                    <group position={[buildingLength / 2, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
-                        <mesh rotation={[Math.PI / 2, 0, 0]}>
-                            <extrudeGeometry args={[WoodDoor(doorWidth, doorHeight, miniHoleNumber), extrudeSettings(wallDepth)]}/>
-                            <meshStandardMaterial color={0x888888} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                        </mesh>
-                    </group>
-
-                    <group position={[buildingLength / 2, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
-                        <mesh rotation={[Math.PI / 2, 0, 0]}>
-                            <extrudeGeometry args={[DoorGlass(doorWidth, doorHeight), extrudeSettings(wallDepth / 2)]}/>
-                            <meshPhongMaterial envMap={glassLoader} reflectivity={1} color={'white'}/>
-                        </mesh>
-                    </group>
-
-                    {(() => {
-                        const listPatterns = [];
-                        for (let index = 0; index < miniHoleNumber; index++) {
-                            listPatterns.push(
-                                <group position={[buildingLength / 2 + bevelSize / 2, sillHeight, - doorWidth / 2 + sideWidth * (index + 1) + miniHoleWidth * index]} rotation={[0, 0, Math.PI / 2]}>
-                                    <mesh rotation={[Math.PI / 2, 0, 0]}>
-                                        <extrudeGeometry args={[DoorPattern(doorWidth, doorHeight, miniHoleNumber, sideWidth, bevelSize), extrudeSettings(wallDepth / 2, 0.01, bevelSize, 0, 1)]}/>
-                                        <meshStandardMaterial color={0x888888} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                                    </mesh>
-                                </group>
-                            );
-                        }
-                        return listPatterns;
-                    })()}
-
+            <group position={[moveLength, 0, 0]}>
+                <group position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <extrudeGeometry args={[FrontWall(buildingWidth, wallHeight, roofAngle, doorWidth, doorHeight, sillHeight, doorFrameWidth), extrudeSettings(wallDepth)]}/>
+                        <meshLambertMaterial map={frontWallTexture} bumpMap={frontWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
+                    </mesh>
                 </group>
-            )}
+                <group position={[0, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <extrudeGeometry args={[DoorFrame(doorWidth, doorHeight, doorFrameWidth), extrudeSettings(wallDepth + 0.02)]}/>
+                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                    </mesh>
+                </group>
+                {doorType === 'Iron' && (<group position={[0, doorHeight / 2 + sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <planeGeometry args={[doorHeight, doorWidth, 256, 256]} />
+                        <meshStandardMaterial displacementMap={doorTexture} map={shaderDoorLoader} bumpMap={doorTexture} bumpScale={1} displacementScale={0.07}  side={THREE.DoubleSide} metalness={0.4} roughness={0.6} color={"white"} emissive={"gray"} />
+                    </mesh>
+                </group>)}
+                {doorType === 'Wood' && (
+                    <group>
+                        <group position={[0, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
+                            <mesh rotation={[Math.PI / 2, 0, 0]}>
+                                <extrudeGeometry args={[WoodDoor(doorWidth, doorHeight, miniHoleNumber), extrudeSettings(wallDepth)]}/>
+                                <meshStandardMaterial color={0x888888} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                            </mesh>
+                        </group>
+
+                        <group position={[0, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
+                            <mesh rotation={[Math.PI / 2, 0, 0]}>
+                                <extrudeGeometry args={[DoorGlass(doorWidth, doorHeight), extrudeSettings(wallDepth / 2)]}/>
+                                <meshPhongMaterial envMap={glassLoader} reflectivity={1} color={'white'}/>
+                            </mesh>
+                        </group>
+
+                        {(() => {
+                            const listPatterns = [];
+                            for (let index = 0; index < miniHoleNumber; index++) {
+                                listPatterns.push(
+                                    <group position={[0 + bevelSize / 2, sillHeight, - doorWidth / 2 + sideWidth * (index + 1) + miniHoleWidth * index]} rotation={[0, 0, Math.PI / 2]}>
+                                        <mesh rotation={[Math.PI / 2, 0, 0]}>
+                                            <extrudeGeometry args={[DoorPattern(doorWidth, doorHeight, miniHoleNumber, sideWidth, bevelSize), extrudeSettings(wallDepth / 2, 0.01, bevelSize, 0, 1)]}/>
+                                            <meshStandardMaterial color={0x888888} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                                        </mesh>
+                                    </group>
+                                );
+                            }
+                            return listPatterns;
+                        })()}
+
+                    </group>
+                )}
+            </group>
+            {buildingType === 'Complex' && 
+                <group position={[buildingWidth / 2, 0, - buildingWidth / 2]}>
+                    <mesh rotation={[0, Math.PI / 2, 0]}>
+                        <extrudeGeometry args={[SideWall(buildingLength, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
+                        <meshLambertMaterial map={frontWallTexture} bumpMap={frontWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
+                    </mesh>
+                </group>
+            }
         </group>
     )
 }
