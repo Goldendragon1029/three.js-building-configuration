@@ -112,15 +112,15 @@ const Roof = () => {
                         </mesh>
                     </group>
 
-                    <group position={[roofLength / 2, buildingWidth / 2 * Math.tan(roofAngle) + wallHeight - roofWidth / 2 * Math.tan(roofAngle), 0]} >
+                    <group position={[roofLength + buildingWidth / 2, buildingWidth / 2 * Math.tan(roofAngle) + wallHeight - roofWidth / 2 * Math.tan(roofAngle), 0]} >
                         <mesh rotation={[0, Math.PI / 2, 0]}>
                             <extrudeGeometry args={[RidgeRoof(roofWidth, wallDepth, roofAngle), extrudeSettings(ridgeDepth)]}/>
                             <meshStandardMaterial color={0x888888} side={THREE.DoubleSide} metalness={5} roughness={1}/>
                         </mesh>
                     </group>
 
-                    <group position={[ - roofLength / 2, buildingWidth / 2 * Math.tan(roofAngle) + wallHeight - roofWidth / 2 * Math.tan(roofAngle), 0]} rotation={[0, Math.PI, 0]}>
-                        <mesh rotation={[0, Math.PI / 2, 0]}>
+                    <group position={[ 0, buildingWidth / 2 * Math.tan(roofAngle) + wallHeight - roofWidth / 2 * Math.tan(roofAngle), - roofLength - buildingWidth / 2]} rotation={[0, Math.PI, 0]}>
+                        <mesh>
                             <extrudeGeometry args={[RidgeRoof(roofWidth, wallDepth, roofAngle), extrudeSettings(ridgeDepth)]}/>
                             <meshStandardMaterial color={0x888888} side={THREE.DoubleSide} metalness={5} roughness={1}/>
                         </mesh>
