@@ -18,7 +18,7 @@ const Toolbar = () => {
                 />
                 <SettingSelector
                     title="Building Size"
-                    item={["4-4", "4-8", "4-12", "8-12"]}
+                    item={["6-6", "6-8", "6-12", "8-12"]}
                     action="buildingSize"
                 />
                 <SettingSelector
