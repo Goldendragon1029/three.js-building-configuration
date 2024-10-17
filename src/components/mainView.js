@@ -64,7 +64,7 @@ const MainView = () =>{
                     doorType={doorType}
                     roofAngle={roofAngle}
                 />
-                <directionalLight position={[20, 10, 20]} castShadow/>
+                <directionalLight position={[20, 10, 10]} castShadow/>
                 <ambientLight intensity={0.1}/>
                 <CameraController position={position}/>
                 <OrbitControls />

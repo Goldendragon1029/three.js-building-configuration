@@ -214,7 +214,7 @@ const SimpleBuilding = (props) => {
             <group>
                 <mesh rotation={[ - Math.PI / 2, 0, 0]} receiveShadow>
                     <planeGeometry args={[30, 30]}/>
-                    <meshStandardMaterial color={'white'} roughness={1} />
+                    <meshStandardMaterial color={'white'} transparent opacity={0.7} roughness={0.4} />
                 </mesh>
             </group>
         </group>
