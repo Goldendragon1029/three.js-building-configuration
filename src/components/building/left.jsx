@@ -7,6 +7,7 @@ import { SideWall } from '../walls/sideWall';
 
 const Left = () => {
 
+    const buildingType = useSelector((state) => state.buildingType);
     const buildingWidth = useSelector((state) => state.width);
     const buildingLength = useSelector((state) => state.length);
 
@@ -22,10 +23,22 @@ const Left = () => {
 
     return (
         <group>
-            <mesh position={[ - buildingLength / 2 - wallDepth, 0, buildingWidth / 2]} castShadow>
-                <extrudeGeometry args={[SideWall(buildingLength, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
-                <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
-            </mesh>
+            {buildingType === 'Simple' && 
+                <group>
+                    <mesh position={[ - buildingLength / 2, 0, buildingWidth / 2]} castShadow>
+                        <extrudeGeometry args={[SideWall(buildingLength, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
+                        <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
+                    </mesh>
+                </group>
+            }
+            {buildingType === 'Complex' && 
+                <group>
+                    <mesh position={[ - buildingWidth / 2, 0, buildingWidth / 2]} castShadow>
+                        <extrudeGeometry args={[SideWall(buildingLength + buildingWidth, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
+                        <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
+                    </mesh>
+                </group>
+            }
         </group>
     )
 }
