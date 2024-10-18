@@ -35,6 +35,12 @@ const Right = () => {
     sideWallTexture.wrapT = THREE.RepeatWrapping;
     sideWallTexture.repeat.set(1, 3);
 
+    const backWallTexture = wallLoader.clone();
+    backWallTexture.wrapS = THREE.RepeatWrapping;
+    backWallTexture.wrapT = THREE.RepeatWrapping;
+    backWallTexture.repeat.set(1, 3);
+    backWallTexture.rotation = Math.PI / 2;
+
     return (
         <group>
             <group>
@@ -47,7 +53,7 @@ const Right = () => {
                 <group position={[0, 0, - buildingWidth / 2 - buildingLength]}>
                     <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
                         <extrudeGeometry args={[BackWall(buildingWidth, wallHeight, roofAngle), extrudeSettings( - wallDepth)]}/>
-                        <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
+                        <meshLambertMaterial map={backWallTexture} bumpMap={backWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                     </mesh>
                 </group>
             }
