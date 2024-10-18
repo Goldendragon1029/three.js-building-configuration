@@ -55,6 +55,11 @@ const Front = () => {
     frontWallTexture.repeat.set(2, 3);
     frontWallTexture.rotation = Math.PI / 2;
 
+    const sideWallTexture = wallLoader.clone();
+    sideWallTexture.wrapS = THREE.RepeatWrapping;
+    sideWallTexture.wrapT = THREE.RepeatWrapping;
+    sideWallTexture.repeat.set(2, 3);
+
     const doorTexture = doorLoader.clone();
     doorTexture.wrapS = THREE.RepeatWrapping;
     doorTexture.wrapT = THREE.RepeatWrapping;
@@ -120,7 +125,7 @@ const Front = () => {
                 <group position={[buildingWidth / 2, 0, - buildingWidth / 2]}>
                     <mesh rotation={[0, Math.PI / 2, 0]}>
                         <extrudeGeometry args={[SideWall(buildingLength, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
-                        <meshLambertMaterial map={frontWallTexture} bumpMap={frontWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
+                        <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                     </mesh>
                 </group>
             }
