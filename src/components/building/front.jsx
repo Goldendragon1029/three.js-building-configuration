@@ -36,7 +36,7 @@ const Front = () => {
     const wallDepth = 0.05;
     const wallHeight = 3;
     const roofAngle = angle * Math.PI / 180;
-    const doorWidth = buildingWidth / 2;
+    const doorWidth = 2.5;
     const doorHeight = 2.5;
     const sillHeight = 0.05;
     const doorFrameWidth = 0.05;
@@ -84,13 +84,13 @@ const Front = () => {
                         <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
                     </mesh>
                 </group>
-                {doorType === 'Iron' && (<group position={[0, doorHeight / 2 + sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
+                {doorType === 'Roll-Door' && (<group position={[0, doorHeight / 2 + sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
                     <mesh rotation={[Math.PI / 2, 0, 0]}>
                         <planeGeometry args={[doorHeight, doorWidth, 256, 256]} />
                         <meshStandardMaterial displacementMap={doorTexture} map={shaderDoorLoader} bumpMap={doorTexture} bumpScale={1} displacementScale={0.07}  side={THREE.DoubleSide} metalness={0.4} roughness={0.6} color={"white"} emissive={"gray"} />
                     </mesh>
                 </group>)}
-                {doorType === 'Wood' && (
+                {doorType === 'Standard' && (
                     <group>
                         <group position={[0, sillHeight, 0]} rotation={[0, 0, Math.PI / 2]}>
                             <mesh rotation={[Math.PI / 2, 0, 0]}>
@@ -126,7 +126,7 @@ const Front = () => {
             </group>
             {buildingType === 'Complex' && 
                 <group position={[buildingWidth / 2 - buildingLength / 2, 0, - buildingWidth / 2 + buildingLength / 2]}>
-                    <mesh rotation={[0, Math.PI / 2, 0]}>
+                    <mesh rotation={[0, Math.PI / 2, 0]} receiveShadow>
                         <extrudeGeometry args={[SideWall(buildingLength, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
                         <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                     </mesh>
