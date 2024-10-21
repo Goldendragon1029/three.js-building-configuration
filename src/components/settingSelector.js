@@ -36,9 +36,10 @@ export default function SettingSelector(props) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 200 }}>
-        <InputLabel id="Setting-type">{props.title}</InputLabel>
+      <FormControl className='w-full px-10 mx-0' sx={{ m: 1, minWidth: 200 }}>
+        <InputLabel className='px-12' id="Setting-type">{props.title}</InputLabel>
         <Select
+          className='w-full'
           labelId="Setting-type"
           value={settingType}
           label="Setting Type"
