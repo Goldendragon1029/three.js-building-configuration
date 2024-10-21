@@ -64,13 +64,18 @@ const MainView = () =>{
                     doorType={doorType}
                     roofAngle={roofAngle}
                 />
-                <directionalLight position={[20, 10, 10]} castShadow/>
+                <directionalLight position={[20, 10, 10]} intensity={1} castShadow/>
                 <directionalLight position={[-10, -10, -10]} castShadow/>
                 <directionalLight position={[20, 10, 10]} castShadow/>
                 <directionalLight position={[20, 10, 10]} castShadow/>
                 <ambientLight intensity={0.1}/>
                 <CameraController position={position}/>
-                <OrbitControls />
+                <OrbitControls 
+                    maxPolarAngle={Math.PI / 2}
+                    enablePan={false}
+                    minDistance={16}
+                    maxDistance={40}
+                />
                 <axesHelper args={[5]} />
                 <gridHelper args={[30, 30]} />
             </Canvas>
