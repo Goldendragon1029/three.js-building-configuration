@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import {  OrbitControls } from "@react-three/drei";
-import SimpleBuilding from "./building/building";
+import SimpleBuilding from "./building";
 import { useSelector } from "react-redux";
 import { Button, ButtonGroup } from "@mui/material";
 import { CameraController } from "./camera";
@@ -64,10 +64,7 @@ const MainView = () =>{
                     doorType={doorType}
                     roofAngle={roofAngle}
                 />
-                <directionalLight position={[20, 10, 10]} intensity={1} castShadow/>
-                <directionalLight position={[-10, -10, -10]} castShadow/>
-                <directionalLight position={[20, 10, 10]} castShadow/>
-                <directionalLight position={[20, 10, 10]} castShadow/>
+                <directionalLight position={[20, 10, 10]} intensity={3} castShadow/>
                 <ambientLight intensity={0.1}/>
                 <CameraController position={position}/>
                 <OrbitControls 
@@ -76,8 +73,6 @@ const MainView = () =>{
                     minDistance={16}
                     maxDistance={40}
                 />
-                <axesHelper args={[5]} />
-                <gridHelper args={[30, 30]} />
             </Canvas>
             <ButtonGroup variant="contained" aria-label="Basic button group" className="absolute z-10 p-1 right-20 top-20">
                 <Button className="text-black bg-white opacity-80" onClick={() => handleCamera('front')}>Front</Button>
