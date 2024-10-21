@@ -41,7 +41,7 @@ const Back = () => {
                 </group>
             }
             {buildingType === 'Complex' &&
-                <group position={[ - buildingWidth / 2, 0, - buildingLength - buildingWidth / 2]}>
+                <group position={[ - buildingWidth / 2 - buildingLength / 2, 0, - buildingLength - buildingWidth / 2 + buildingLength / 2]}>
                     <mesh rotation={[0, - Math.PI / 2, 0]} castShadow>
                         <extrudeGeometry args={[SideWall(buildingLength + buildingWidth, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
                         <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />

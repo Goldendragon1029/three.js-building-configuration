@@ -14,10 +14,10 @@ const SimpleBuilding = () => {
             <Left />
             <Roof />
             <Trim />
-            {/* <mesh rotation={[ - Math.PI / 2, 0, 0]} receiveShadow>
-                <planeGeometry args={[40, 40]}/>
+            <mesh rotation={[ - Math.PI / 2, 0, 0]} receiveShadow>
+                <planeGeometry args={[200, 200]}/>
                 <meshStandardMaterial color={'white'} transparent opacity={0.7} roughness={0.4} />
-            </mesh> */}
+            </mesh>
         </group>
     )
 }

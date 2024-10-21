@@ -10,10 +10,11 @@ const Toolbar = () => {
   
     return (
         <>
-            <div className={`bg-white z-50 min-h-full tablet:min-w-350 tablet:block large:min-w-450 min-w-300 ${handleShow ? 'block fixed' : 'hidden'}`}>
+            <div className={`bg-white mt-20 z-50 min-h-full tablet:min-w-350 tablet:block large:min-w-450 min-w-300 ${handleShow ? 'block fixed' : 'hidden'}`}>
+                <h1 className="mb-10 text-center text-gray text-30">Setting</h1>
                 <SettingSelector
                     title="Building Type"
-                    item={["Simple", "Complex"]}
+                    item={["Normal", "L-shape"]}
                     action="buildingType"
                 />
                 <SettingSelector
@@ -28,7 +29,7 @@ const Toolbar = () => {
                 />
                 <SettingSelector
                     title="Door Type"
-                    item={["Iron", "Wood"]}
+                    item={["Roll-Door", "Standard"]}
                     action="doorType"
                 />
                 <SettingSelector

@@ -18,13 +18,16 @@ const Right = () => {
     const wallHeight = 3;
     const roofAngle = angle * Math.PI / 180;
 
-    const [moveLength, setMoveLength] = useState( - buildingLength / 2 );
+    const [moveWidth, setMoveWidth] = useState( - buildingLength / 2 );
+    const [moveLength, setMoveLength] = useState(0);
 
     useEffect(() => {
       if (buildingType === 'Simple') {
-        setMoveLength( - buildingLength / 2 ); 
+        setMoveWidth( - buildingLength / 2 ); 
+        setMoveLength(0);
       } else {
-        setMoveLength(buildingWidth / 2);
+        setMoveWidth(buildingWidth / 2 - buildingLength / 2);
+        setMoveLength(buildingLength / 2);
       }
     }, [buildingType, buildingLength, buildingWidth]);
 
@@ -44,13 +47,13 @@ const Right = () => {
     return (
         <group>
             <group>
-                <mesh position={[moveLength, 0, - buildingWidth / 2]} castShadow>
+                <mesh position={[moveWidth, 0, - buildingWidth / 2 + moveLength]} castShadow>
                     <extrudeGeometry args={[SideWall(buildingLength, wallHeight, wallDepth), extrudeSettings( - wallDepth)]}/>
                     <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                 </mesh>
             </group>
             {buildingType === 'Complex' && 
-                <group position={[0, 0, - buildingWidth / 2 - buildingLength]}>
+                <group position={[ - buildingLength / 2, 0, - buildingWidth / 2 - buildingLength / 2]}>
                     <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
                         <extrudeGeometry args={[BackWall(buildingWidth, wallHeight, roofAngle), extrudeSettings( - wallDepth)]}/>
                         <meshLambertMaterial map={backWallTexture} bumpMap={backWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />

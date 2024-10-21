@@ -41,45 +41,46 @@ const Trim = () => {
                 </group>
             </group>}
 
-            {buildingType === 'Complex' && <group>
-                <group position={[buildingLength + buildingWidth / 2 - pillarWidth / 4, 0, - buildingWidth / 2 + pillarWidth / 4]}>
-                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
-                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
-                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                    </mesh>
+            {buildingType === 'Complex' && 
+                <group position={[ - buildingLength / 2, 0, buildingLength / 2]}>
+                    <group position={[buildingLength + buildingWidth / 2 - pillarWidth / 4, 0, - buildingWidth / 2 + pillarWidth / 4]}>
+                        <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                            <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                            <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                        </mesh>
+                    </group>
+                    <group position={[buildingWidth / 2 - pillarWidth / 4, 0, - buildingLength - buildingWidth / 2 + pillarWidth / 4]}>
+                        <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                            <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                            <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                        </mesh>
+                    </group>
+                    <group position={[buildingWidth / 2 - pillarWidth / 4, 0, - buildingWidth / 2 + pillarWidth / 4]}>
+                        <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                            <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                            <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                        </mesh>
+                    </group>
+                    <group position={[ - buildingWidth / 2 + pillarWidth / 4, 0, - buildingWidth / 2 - buildingLength + pillarWidth / 4]} rotation={[0, Math.PI / 2, 0]}>
+                        <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                            <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                            <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                        </mesh>
+                    </group>
+                    <group position={[ - buildingWidth / 2 + pillarWidth / 4, 0, buildingWidth / 2 - pillarWidth / 4]} rotation={[0, Math.PI, 0]}>
+                        <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                            <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                            <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                        </mesh>
+                    </group>
+                    <group position={[ buildingWidth / 2 + buildingLength - pillarWidth / 4, 0, buildingWidth / 2 - pillarWidth / 4]} rotation={[0, - Math.PI / 2, 0]}>
+                        <mesh rotation={[ - Math.PI / 2, 0, 0]}>
+                            <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
+                            <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
+                        </mesh>
+                    </group>
                 </group>
-                <group position={[buildingWidth / 2 - pillarWidth / 4, 0, - buildingLength - buildingWidth / 2 + pillarWidth / 4]}>
-                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
-                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
-                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                    </mesh>
-                </group>
-                <group position={[buildingWidth / 2 - pillarWidth / 4, 0, - buildingWidth / 2 + pillarWidth / 4]}>
-                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
-                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
-                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                    </mesh>
-                </group>
-                <group position={[ - buildingWidth / 2 + pillarWidth / 4, 0, - buildingWidth / 2 - buildingLength + pillarWidth / 4]} rotation={[0, Math.PI / 2, 0]}>
-                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
-                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
-                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                    </mesh>
-                </group>
-                <group position={[ - buildingWidth / 2 + pillarWidth / 4, 0, buildingWidth / 2 - pillarWidth / 4]} rotation={[0, Math.PI, 0]}>
-                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
-                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
-                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                    </mesh>
-                </group>
-                <group position={[ buildingWidth / 2 + buildingLength - pillarWidth / 4, 0, buildingWidth / 2 - pillarWidth / 4]} rotation={[0, - Math.PI / 2, 0]}>
-                    <mesh rotation={[ - Math.PI / 2, 0, 0]}>
-                        <extrudeGeometry args={[Pillar(pillarWidth), extrudeSettings(wallHeight)]} />
-                        <meshStandardMaterial color={0x666666} side={THREE.DoubleSide} metalness={5} roughness={1} />
-                    </mesh>
-                </group>
-            </group>}
-            
+            }
         </group>
     )
 }

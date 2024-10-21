@@ -33,7 +33,7 @@ const Left = () => {
             }
             {buildingType === 'Complex' && 
                 <group>
-                    <mesh position={[ - buildingWidth / 2, 0, buildingWidth / 2]} castShadow>
+                    <mesh position={[ - buildingWidth / 2 - buildingLength / 2, 0, buildingWidth / 2 + buildingLength / 2]} castShadow>
                         <extrudeGeometry args={[SideWall(buildingLength + buildingWidth, wallHeight, wallDepth), extrudeSettings(wallDepth)]}/>
                         <meshLambertMaterial map={sideWallTexture} bumpMap={sideWallTexture} bumpScale={0.02} side={THREE.DoubleSide} toneMapped={false} />
                     </mesh>
